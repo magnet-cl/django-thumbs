@@ -5,7 +5,6 @@ from setuptools import setup, find_packages
 import os
 import django_thumbs
 
-
 CLASSIFIERS = [
     'Development Status :: 4 - Beta',
     'Environment :: Web Environment',
@@ -17,6 +16,8 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 2.5',
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     'Topic :: Software Development',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
@@ -34,5 +35,6 @@ setup(
       license = 'New BSD License',
       platforms = ['OS Independent'],
       classifiers = CLASSIFIERS,
-      packages = find_packages()
+      packages = find_packages(),
+      use_2to3 = True,
 )
