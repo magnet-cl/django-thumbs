@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- encoding: utf-8 -*-
 
 from setuptools import setup, find_packages
 import os
@@ -13,9 +12,6 @@ CLASSIFIERS = [
     'License :: OSI Approved :: BSD License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
-    'Programming Language :: Python :: 2.5',
-    'Programming Language :: Python :: 2.6',
-    'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.6',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
@@ -36,5 +32,4 @@ setup(
       platforms = ['OS Independent'],
       classifiers = CLASSIFIERS,
       packages = find_packages(),
-      use_2to3 = True,
 )
