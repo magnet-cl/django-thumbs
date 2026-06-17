@@ -55,7 +55,7 @@ class ImageWithThumbsFieldFile(ImageFieldFile):
     def _url_for_size(self, size):
         """Return a URL pointing to the thumbnail image of the requested size.
         If `THUMBS_GENERATE_MISSING_THUMBNAILS` is True, the thumbnail will be created if it doesn't exist on disk.
-            
+
         Arguments:
         size  -- A tuple with the desired width and height. Example: (100, 100)
 
@@ -86,6 +86,9 @@ class ImageWithThumbsFieldFile(ImageFieldFile):
         name -- The field `url` with size suffix formatted as _WxH. Example: instance.url_100x70
 
         """
+        if not name.startswith("url_"):
+            raise AttributeError
+
         sizeStr = name.replace("url_", "")
         width, height = sizeStr.split("x")
         requestedSize = (int(width), int(height))
@@ -103,7 +106,7 @@ class ImageWithThumbsFieldFile(ImageFieldFile):
 
     def _generate_thumb(self, image, size):
         """Generates a thumbnail of `size`.
-        
+
         Arguments:
         image -- An `File` object with the image in its original size.
         size  -- A tuple with the desired width and height. Example: (100, 100)
@@ -184,39 +187,39 @@ class ImageWithThumbsField(ImageField):
     Usage example:
     ==============
     photo = ImageWithThumbsField(upload_to='images', sizes=((125,125),(300,200),)
-    
+
     To retrieve image URL, exactly the same way as with ImageField:
         my_object.photo.url
     To retrieve thumbnails URL's just add the size to it:
         my_object.photo.url_125x125
         my_object.photo.url_300x200
-    
+
     Note: The 'sizes' attribute is not required. If you don't provide it,
     ImageWithThumbsField will act as a normal ImageField
-        
+
     How it works:
     =============
     For each size in the 'sizes' atribute of the field it generates a
     thumbnail with that size and stores it following this format:
-    
+
     available_filename.[width]x[height].extension
 
     Where 'available_filename' is the available filename returned by the storage
     backend for saving the original file.
-    
+
     Following the usage example above: For storing a file called "photo.jpg" it saves:
     photo.jpg          (original file)
     photo.125x125.jpg  (first thumbnail)
     photo.300x200.jpg  (second thumbnail)
-    
+
     With the default storage backend if photo.jpg already exists it will use these filenames:
     photo_.jpg
     photo_.125x125.jpg
     photo_.300x200.jpg
-    
+
     Note: django-thumbs assumes that if filename "any_filename.jpg" is available
     filenames with this format "any_filename.[widht]x[height].jpg" will be available, too.
-    
+
     """
     attr_class = ImageWithThumbsFieldFile
 
